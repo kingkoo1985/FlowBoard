@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  flowboard:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: flowboard
+    restart: unless-stopped
+    ports:
+      - "18790:18790"
+    environment:
+      # Server configuration
+      - FLOWBOARD_PORT=18790
+      - FLOWBOARD_HOST=0.0.0.0
+
+      # OpenClaw workspace (required for project switching)
+      - OPENCLAW_WORKSPACE=/workspace
+
+      # Gateway webhook configuration (optional, for project-switch wake events)
+      - OPENCLAW_GATEWAY_PORT=15988
+      - OPENCLAW_HOOKS_TOKEN=${OPENCLAW_HOOKS_TOKEN:-}
+
+      # Telegram Mini App auth (optional)
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN:-}
+      - JWT_SECRET=${JWT_SECRET:-change-this-in-production}
+      - ALLOWED_USER_IDS=${ALLOWED_USER_IDS:-}
+      - DASHBOARD_ORIGIN=${DASHBOARD_ORIGIN:-}
+      - LOCAL_HOSTNAME=${LOCAL_HOSTNAME:-}
+      - AUTH_ALWAYS=${AUTH_ALWAYS:-false}
+
+      # Node environment
+      - NODE_ENV=production
+
+    volumes:
+      # Mount OpenClaw workspace
+      - openclaw_workspace:/workspace
+
+      # Optional: Mount a custom workspace directory
+      # - /path/to/your/workspace:/workspace
+
+    networks:
+      - flowboard-network
+
+    # Logging configuration
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+    # Resource limits (optional, adjust based on your needs)
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.5'
+          memory: 256M
+
+networks:
+  flowboard-network:
+    driver: bridge
+
+volumes:
+  openclaw_workspace:
+    driver: local

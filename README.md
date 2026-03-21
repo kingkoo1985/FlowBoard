@@ -128,6 +128,138 @@ The agent creates the folder structure, task file, and registers it in the dashb
 
 ---
 
+## 🐳 Docker Deployment
+
+FlowBoard provides complete Docker deployment support for easy containerization and portability.
+
+### Prerequisites
+
+- Docker 20.10+
+- Docker Compose 2.0+
+
+### Quick Start with Docker
+
+#### 1. Clone and build
+
+```bash
+git clone https://github.com/rasimme/FlowBoard.git
+cd FlowBoard
+docker build -t flowboard:latest .
+```
+
+#### 2. Run with Docker Compose (Recommended)
+
+```bash
+# Copy example environment file
+cp .env.example .env
+
+# Edit .env with your configuration
+nano .env
+
+# Start services
+docker-compose up -d
+
+# Access dashboard
+open http://localhost:18790
+```
+
+#### 3. Mount OpenClaw Workspace
+
+**Option A: Host path mapping** (Recommended)
+
+Edit `docker-compose.yml`:
+
+```yaml
+volumes:
+  - /Users/mac/.openclaw/workspace:/workspace
+```
+
+**Option B: Use named volume**
+
+```bash
+# Copy project files to volume
+docker cp /path/to/your/PROJECT.md flowboard:/workspace/ACTIVE-PROJECT.md
+docker cp -r /path/to/your/project flowboard:/workspace/projects/my-project
+```
+
+### Makefile Commands
+
+```bash
+make help          # Show all available commands
+make build         # Build Docker image
+make up            # Start services
+make down          # Stop services
+make restart       # Restart services
+make logs          # Show logs
+make shell         # Open shell in container
+make clean         # Remove containers and volumes
+make rebuild       # Rebuild and restart
+```
+
+### Production Deployment
+
+#### 1. Environment Variables
+
+See `.env.example` for all available configuration options. Key production settings:
+
+```bash
+# Required: Workspace
+OPENCLAW_WORKSPACE=/workspace
+
+# Optional: Auth (strongly recommended for remote access)
+TELEGRAM_BOT_TOKEN=your_bot_token
+JWT_SECRET=openssl rand -hex 32
+ALLOWED_USER_IDS=123456789
+
+# Optional: Tunnel
+TUNNEL_TOKEN=your_cloudflare_tunnel_token
+```
+
+#### 2. Health Checks
+
+The container includes built-in health checks:
+
+```bash
+docker ps --format "table {{.Status}}"
+# Check health: STATUS should be "Up (healthy)"
+```
+
+#### 3. Resource Limits
+
+Default resource limits in `docker-compose.yml`:
+
+- CPU: 1.0 core (limit) / 0.5 core (reserved)
+- Memory: 512MB (limit) / 256MB (reserved)
+
+Adjust based on your needs.
+
+#### 4. Security Best Practices
+
+- ✅ Non-root user (configured in Dockerfile)
+- ✅ Read-only file system where possible
+- ✅ Resource limits prevent resource exhaustion
+- ✅ JWT_SECRET must be strong (32+ random hex characters)
+- ✅ Use HTTPS in production (reverse proxy with Nginx/Traefik)
+
+### Remote Access with Cloudflare Tunnel
+
+Run Cloudflare Tunnel alongside FlowBoard:
+
+```bash
+docker-compose up -d
+
+# In another terminal
+cloudflared tunnel run --url http://localhost:18790
+```
+
+Or integrate tunnel into `docker-compose.yml` (see `DOCKER_DEPLOY.md`).
+
+### Troubleshooting
+
+See [DOCKER_DEPLOY.md](DOCKER_DEPLOY.md) for complete troubleshooting guide.
+
+---
+
 ## Canvas → Task Promote
 
 The Idea Canvas promote feature requires OpenClaw webhooks:
