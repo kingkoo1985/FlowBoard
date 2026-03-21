@@ -59,7 +59,7 @@ function toggleSidebar() {
 function renderSidebar() {
   const list = document.getElementById('projectList');
   if (state.projects.length === 0) {
-    list.innerHTML = '<div class="sidebar-empty">No projects</div>';
+    list.innerHTML = '<div class="sidebar-empty">暂无项目</div>';
   } else {
     list.innerHTML = state.projects.map(p => {
       const isActive = p.name === state.activeProject;
@@ -77,9 +77,9 @@ function renderSidebar() {
 
   const actions = document.getElementById('sidebarActions');
   if (state.viewedProject && state.viewedProject !== state.activeProject) {
-    actions.innerHTML = `<button class="btn btn-primary btn-sm btn-full" data-action="activate-project">Activate</button>`;
+    actions.innerHTML = `<button class="btn btn-primary btn-sm btn-full" data-action="activate-project">激活</button>`;
   } else if (state.viewedProject && state.viewedProject === state.activeProject) {
-    actions.innerHTML = `<button class="btn btn-secondary btn-sm btn-full" data-action="deactivate-project">Deactivate</button>`;
+    actions.innerHTML = `<button class="btn btn-secondary btn-sm btn-full" data-action="deactivate-project">停用</button>`;
   } else {
     actions.innerHTML = '';
   }
@@ -91,7 +91,7 @@ function renderHeader() {
   const isActive = state.viewedProject === state.activeProject;
   el.innerHTML = `
     <span class="header-project">${formatDisplayName(state.viewedProject)}</span>
-    ${isActive ? '<span class="badge-active">Active</span>' : ''}
+    ${isActive ? '<span class="badge-active">活跃</span>' : ''}
   `;
 }
 
@@ -134,7 +134,7 @@ async function viewProject(name) {
 async function activateProject() {
   await api('/status', { method: 'PUT', body: { project: state.viewedProject } });
   state.activeProject = state.viewedProject;
-  toast(`Project "${state.viewedProject}" activated`, 'success');
+  toast(`项目 "${state.viewedProject}" 已激活`, 'success');
   renderSidebar();
   renderHeader();
 }
@@ -142,7 +142,7 @@ async function activateProject() {
 async function deactivateProject() {
   await api('/status', { method: 'PUT', body: { project: null } });
   state.activeProject = null;
-  toast('Project deactivated.', 'info');
+  toast('项目已停用。', 'info');
   renderSidebar();
   renderHeader();
 }
@@ -277,7 +277,7 @@ window._submitSubtask = function() {
 };
 window._openSpec = function(specPath, taskId) {
   if (!specPath) {
-    toast(`No spec linked${taskId ? ` for ${taskId}` : ''}`, 'warn');
+    toast(`未关联规范文件${taskId ? `：${taskId}` : ''}`, 'warn');
     return;
   }
   fileState.pendingOpen = specPath;

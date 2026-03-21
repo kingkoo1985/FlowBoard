@@ -322,14 +322,14 @@ export async function pasteFromClipboard() {
 
 export function toolbarDelete() {
   const ids = [...canvasState.selectedIds];
-  if (ids.length === 0) return;
+  if (ids.length ===0) return;
 
-  if (ids.length === 1) {
+  if (ids.length ===1) {
     startDeleteNote(ids[0]);
   } else {
     showModal(
-      'Delete notes?',
-      `Delete <strong>${ids.length}</strong> selected notes? This cannot be undone.`,
+      '删除便签？',
+      `删除 <strong>${ids.length}</strong> 个选中的便签？此操作无法撤销。`,
       async () => {
         for (const id of ids) {
           await confirmDeleteNote(id);
@@ -338,6 +338,7 @@ export function toolbarDelete() {
     );
   }
 }
+
 
 export function bindToolbarEvents() {
   const toolbar = document.getElementById('canvasToolbar');

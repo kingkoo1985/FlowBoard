@@ -76,7 +76,7 @@ function noteHTML(note) {
       <span class="note-id">${note.id}</span>
     </div>
     <div class="note-body">
-      <div class="note-text md-content">${rendered || '<span style="opacity:0.3;font-size:11px">Double-click to add text\u2026</span>'}</div>
+      <div class="note-text md-content">${rendered || '<span style="opacity:0.3;font-size:11px">双击添加文本\u2026</span>'}</div>
     </div>
     <div class="note-overflow-fade" aria-hidden="true"></div>
     `;
@@ -147,8 +147,8 @@ export function renderEmptyState() {
       const el = document.createElement('div');
       el.className = 'canvas-empty';
       el.innerHTML = `<div class="canvas-empty-icon">${ICONS.lightbulb}</div>
-        <div>Double-click to create your first idea</div>
-        <div style="font-size:12px;opacity:0.6">or use the + Note button</div>`;
+        <div>双击创建第一个创意</div>
+        <div style="font-size:12px;opacity:0.6">或使用 + 便签按钮</div>`;
       document.getElementById("canvasWrap").appendChild(el);
     }
   } else {
@@ -202,10 +202,10 @@ export function addNote(state) {
 export function startDeleteNote(id) {
   const note = canvasState.notes.find(n => n.id === id);
   if (!note) return;
-  const preview = note.text ? note.text.slice(0, 60) : '(empty)';
+  const preview = note.text ? note.text.slice(0, 60) : '(空)';
   showModal(
-    'Delete note?',
-    `<strong>${id}</strong>: ${escHtml(preview)}<br>This action cannot be undone.`,
+    '删除便签？',
+    `<strong>${id}</strong>: ${escHtml(preview)}<br>此操作无法撤销。`,
     () => confirmDeleteNote(id)
   );
 }

@@ -3,7 +3,7 @@
 import { api, toast, escHtml, formatSize, ICONS, showModal } from './utils.js?v=6';
 
 // File loading categories
-const CATEGORY_LABELS = { always: 'always loaded', lazy: 'lazy loaded', optional: 'context' };
+const CATEGORY_LABELS = { always: '始终加载', lazy: '延迟加载', optional: '上下文' };
 const CATEGORY_COLORS = { always: 'ok', lazy: 'warn', optional: 'info' };
 
 export const fileState = {
@@ -33,7 +33,7 @@ export async function loadFileContent(filePath, state) {
   try {
     const data = await api(`/projects/${state.viewedProject}/files/${filePath}`);
     if (data?.error) {
-      toast(`File not found: ${filePath}`, 'warn');
+      toast(`文件未找到：${filePath}`, 'warn');
       console.warn('Failed to load file:', data.error);
       return;
     }
@@ -52,16 +52,17 @@ export async function loadFileContent(filePath, state) {
     if (explorer) explorer.classList.add('show-preview');
     renderFileTree();
     renderFilePreview();
-    // Scroll selected file into view in the tree
+    // Scroll selected file into view in tree
     requestAnimationFrame(() => {
       const sel = document.querySelector('#fileTreeItems .tree-item.selected');
       if (sel) sel.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
     });
   } catch (err) {
-    toast(`Failed to load: ${filePath}`, 'error');
+    toast(`加载失败：${filePath}`, 'error');
     console.error('Failed to load file:', err);
   }
 }
+
 
 export async function saveFileContent(state) {
   if (!state.viewedProject || !fileState.selectedFile) return;
@@ -74,11 +75,11 @@ export async function saveFileContent(state) {
     fileState.fileContent.content = content;
     fileState.fileUnsaved = false;
     fileState.fileEditedContent = null;
-    toast('File saved', 'success');
+    toast('文件已保存', 'success');
     renderFilePreview();
     loadFileTree(state);
   } catch (err) {
-    toast('Failed to save: ' + err.message, 'error');
+    toast('保存失败：' + err.message, 'error');
   }
 }
 
@@ -205,7 +206,7 @@ function renderFilePreview() {
   container.classList.toggle('editing', !!fileState.fileEditing);
 
   if (!fileState.fileContent) {
-    container.innerHTML = '<div class="file-preview-empty">Select a file to preview</div>';
+    container.innerHTML = '<div class="file-preview-empty">选择一个文件进行预览</div>';
     return;
   }
 
@@ -215,16 +216,16 @@ function renderFilePreview() {
   const ext = f.path.split('.').pop();
   const isJson = ext === 'json';
 
-  const unsavedDot = fileState.fileUnsaved ? '<span class="unsaved-dot" title="Unsaved changes"></span>' : '';
+  const unsavedDot = fileState.fileUnsaved ? '<span class="unsaved-dot" title="未保存的更改"></span>' : '';
   const saveBtn = fileState.fileUnsaved
-    ? '<button class="btn btn-primary btn-sm" data-action="save-file" style="font-size:11px">Save</button>'
+    ? '<button class="btn btn-primary btn-sm" data-action="save-file" style="font-size:11px">保存</button>'
     : '';
   const canDelete = (f.path.startsWith('context/') || f.path.startsWith('specs/')) && !fileState.fileEditing;
-  const deleteBtn = canDelete ? `<button class="delete-btn" data-action="delete-file" title="Delete file">${ICONS.trash}</button>` : '';
+  const deleteBtn = canDelete ? `<button class="delete-btn" data-action="delete-file" title="删除文件">${ICONS.trash}</button>` : '';
 
   container.innerHTML = `
     <div class="file-preview-header">
-      <button class="file-back-btn" data-action="back-to-tree">← Files</button>
+      <button class="file-back-btn" data-action="back-to-tree">← 文件</button>
       <div class="file-preview-info">
         <span class="file-preview-name">${escHtml(f.path)}${unsavedDot}</span>
         <span class="file-preview-size">${formatSize(f.size)}</span>
@@ -233,7 +234,7 @@ function renderFilePreview() {
       <div class="file-preview-actions">
         ${saveBtn}
         <button class="btn btn-ghost btn-sm" data-action="toggle-edit">
-          ${fileState.fileEditing ? 'Preview' : 'Edit'}
+          ${fileState.fileEditing ? '预览' : '编辑'}
         </button>
         ${deleteBtn}
       </div>
@@ -254,13 +255,13 @@ function renderFilePreview() {
       const nameEl = container.querySelector('.file-preview-name');
       if (nameEl) {
         const dot = nameEl.querySelector('.unsaved-dot');
-        if (fileState.fileUnsaved && !dot) nameEl.insertAdjacentHTML('beforeend', '<span class="unsaved-dot" title="Unsaved changes"></span>');
+        if (fileState.fileUnsaved && !dot) nameEl.insertAdjacentHTML('beforeend', '<span class="unsaved-dot" title="未保存的更改"></span>');
         else if (!fileState.fileUnsaved && dot) dot.remove();
       }
       if (actions) {
         const existing = actions.querySelector('.btn-primary');
-        if (fileState.fileUnsaved && !existing) {
-          actions.insertAdjacentHTML('afterbegin', '<button class="btn btn-primary btn-sm" data-action="save-file" style="font-size:11px">Save</button>');
+        if (fileState.fileUnsaved && !existing) {ƒ
+          actions.insertAdjacentHTML('afterbegin', '<button class="btn btn-primary btn-sm" data-action="save-file" style="font-size:11px">保存</button>');
         } else if (!fileState.fileUnsaved && existing) {
           existing.remove();
         }

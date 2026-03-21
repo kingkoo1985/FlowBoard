@@ -176,8 +176,8 @@ async function renderIdeaCanvas(state) {
         </defs>
         <rect width="10000" height="10000" x="-5000" y="-5000" fill="url(#dotPattern)"/>
       </svg>
-      <svg id="canvasSvgOverlay" class="canvas-svg canvas-svg-overlay"></svg>
-      <div class="canvas-empty"><div class="canvas-empty-icon">${ICONS.lightbulb}</div><div>Select a project</div></div>`;
+       <svg id="canvasSvgOverlay" class="canvas-svg canvas-svg-overlay"></svg>
+      <div class="canvas-empty"><div class="canvas-empty-icon">${ICONS.lightbulb}</div><div>选择一个项目</div></div>`;
     return;
   }
 

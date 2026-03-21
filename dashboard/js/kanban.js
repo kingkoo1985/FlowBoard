@@ -25,7 +25,7 @@ export function toggleSort() {
   const icon = document.getElementById('sortIcon');
   const label = document.getElementById('sortLabel');
   if (icon) icon.textContent = kanbanState.sortNewestFirst ? '↓' : '↑';
-  if (label) label.textContent = kanbanState.sortNewestFirst ? 'Newest first' : 'Oldest first';
+  if (label) label.textContent = kanbanState.sortNewestFirst ? '最新优先' : '最旧优先';
   return true; // Signal re-render needed
 }
 
@@ -61,8 +61,8 @@ export function updateBoard(state) {
 
   if (!state.viewedProject) {
     const msg = state.projects.length === 0
-      ? 'No projects found. Create a new project via chat.'
-      : 'Select a project from the sidebar.';
+      ? '未找到项目。请通过聊天创建新项目。'
+      : '从侧边栏选择一个项目。';
     content.innerHTML = `<div class="empty-state">${msg}</div>`;
     kanbanState.boardBuilt = false;
     return;
@@ -104,7 +104,7 @@ export function updateBoard(state) {
       if (!emptyEl) {
         const placeholder = document.createElement('div');
         placeholder.className = 'column-empty';
-        placeholder.textContent = 'No tasks';
+        placeholder.textContent = '暂无任务';
         if (addBtn) body.insertBefore(placeholder, addBtn);
         else if (addForm) body.insertBefore(placeholder, addForm);
         else body.appendChild(placeholder);
@@ -167,10 +167,10 @@ export function updateBoard(state) {
           container.dataset.parentId = kanbanState.addingSubtaskParentId;
           parentCard.after(container);
         }
-        form.innerHTML = `<input class="subtask-input" placeholder="Subtask title..." data-parent="${kanbanState.addingSubtaskParentId}">
+        form.innerHTML = `<input class="subtask-input" placeholder="子任务标题..." data-parent="${kanbanState.addingSubtaskParentId}">
           <div class="form-actions" style="margin-top:6px">
-            <button class="btn btn-primary btn-sm" data-action="submit-subtask" data-id="${kanbanState.addingSubtaskParentId}">Add</button>
-            <button class="btn btn-secondary btn-sm" data-action="cancel-subtask">Cancel</button>
+            <button class="btn btn-primary btn-sm" data-action="submit-subtask" data-id="${kanbanState.addingSubtaskParentId}">添加</button>
+            <button class="btn btn-secondary btn-sm" data-action="cancel-subtask">取消</button>
           </div>`;
         container.appendChild(form);
         setTimeout(() => {
@@ -215,7 +215,7 @@ export function updateBoard(state) {
           else body.appendChild(existingBtn);
         } else {
           body.insertAdjacentHTML(kanbanState.sortNewestFirst ? 'afterbegin' : 'beforeend',
-            `<button class="add-task-btn" data-action="start-add">+ New Task</button>`);
+            `<button class="add-task-btn" data-action="start-add">+ 新任务</button>`);
         }
       }
     }
@@ -272,9 +272,9 @@ function cardInnerHTML(task) {
   const isEditing = kanbanState.editingTaskId === task.id;
   const hasUsableSpec = task.specFile && task.specExists !== false;
   const specBadge = hasUsableSpec
-    ? `<span class="spec-badge" data-action="open-spec" data-file="${escHtml(task.specFile)}" data-id="${task.id}" title="Open spec file">${ICON_SPEC}</span>`
-    : `<span class="spec-badge spec-badge-add" data-action="create-spec" data-id="${task.id}" title="Create spec file">${ICON_SPEC_ADD}</span>`;
-  const subtaskBtn = `<span class="subtask-add-btn" data-action="add-subtask" data-id="${task.id}" title="Add subtask">${ICON_SUBTASK}</span>`;
+    ? `<span class="spec-badge" data-action="open-spec" data-file="${escHtml(task.specFile)}" data-id="${task.id}" title="打开规范文件">${ICON_SPEC}</span>`
+    : `<span class="spec-badge spec-badge-add" data-action="create-spec" data-id="${task.id}" title="创建规范文件">${ICON_SPEC_ADD}</span>`;
+  const subtaskBtn = `<span class="subtask-add-btn" data-action="add-subtask" data-id="${task.id}" title="添加子任务">${ICON_SUBTASK}</span>`;
 
   let progressHtml = '';
   if (task.subtaskIds && task.subtaskIds.length > 0) {
@@ -301,17 +301,18 @@ function cardInnerHTML(task) {
     }
   }
 
+  const priorityLabels = { low: '低', medium: '中', high: '高' };
   const subtaskCount = task.subtaskIds ? task.subtaskIds.length : 0;
   return `<div style="display:flex;justify-content:space-between;align-items:flex-start">
       <div class="task-id mono">${task.id}</div>
-      <button class="delete-btn" data-action="delete-task" data-id="${task.id}" data-title="${escHtml(task.title)}" data-spec="${task.specFile || ''}" data-subtasks="${subtaskCount}" title="Delete task">${ICON_TRASH}</button>
+      <button class="delete-btn" data-action="delete-task" data-id="${task.id}" data-title="${escHtml(task.title)}" data-spec="${task.specFile || ''}" data-subtasks="${subtaskCount}" title="删除任务">${ICON_TRASH}</button>
     </div>
     ${isEditing
       ? `<input class="task-title-input" value="${escHtml(task.title)}" autofocus>`
       : `<div class="task-title" data-action="edit-task" data-id="${task.id}">${escHtml(task.title)}</div>`}
     <div class="task-meta">
       <span class="priority-pill-wrap">
-        <span class="priority-pill priority-${task.priority}" data-action="toggle-priority" data-id="${task.id}" data-priority="${task.priority}">${task.priority}</span>
+        <span class="priority-pill priority-${task.priority}" data-action="toggle-priority" data-id="${task.id}" data-priority="${task.priority}">${priorityLabels[task.priority]}</span>
       </span>
       <span class="task-meta-actions">${subtaskBtn}${specBadge}</span>
     </div>${progressHtml}`;
@@ -321,8 +322,8 @@ function subtaskCardInner(task) {
   const isEditing = kanbanState.editingTaskId === task.id;
   const hasUsableSpec = task.specFile && task.specExists !== false;
   const specBadge = hasUsableSpec
-    ? `<span class="spec-badge spec-badge-sm" data-action="open-spec" data-file="${escHtml(task.specFile)}" data-id="${task.id}" title="Open spec file">${ICON_SPEC}</span>`
-    : `<span class="spec-badge spec-badge-add spec-badge-sm" data-action="create-spec" data-id="${task.id}" title="Create spec file">${ICON_SPEC_ADD}</span>`;
+    ? `<span class="spec-badge spec-badge-sm" data-action="open-spec" data-file="${escHtml(task.specFile)}" data-id="${task.id}" title="打开规范文件">${ICON_SPEC}</span>`
+    : `<span class="spec-badge spec-badge-add spec-badge-sm" data-action="create-spec" data-id="${task.id}" title="创建规范文件">${ICON_SPEC_ADD}</span>`;
   return `<span class="tree-dot"></span>
     <span class="status-dot-wrap" data-action="toggle-status" data-id="${task.id}" data-status="${task.status}">
       <span class="status-dot status-dot-${task.status}"></span>
@@ -332,13 +333,13 @@ function subtaskCardInner(task) {
       : `<span class="subtask-title" data-action="edit-subtask" data-id="${task.id}">${escHtml(task.title)}</span>`}
     <span class="subtask-actions">
       ${specBadge}
-      <button class="delete-btn" data-action="delete-task" data-id="${task.id}" data-title="${escHtml(task.title)}" data-spec="${task.specFile || ''}" data-subtasks="0" title="Delete subtask">${ICON_TRASH}</button>
+      <button class="delete-btn" data-action="delete-task" data-id="${task.id}" data-title="${escHtml(task.title)}" data-spec="${task.specFile || ''}" data-subtasks="0" title="删除子任务">${ICON_TRASH}</button>
     </span>`;
 }
 
 function renderAddTaskForm() {
   return `<div class="add-task-form">
-    <input id="newTaskTitle" placeholder="Task title...">
+    <input id="newTaskTitle" placeholder="任务标题...">
     <div class="priority-selector">
       <button class="priority-option" data-p="low" data-action="select-priority" data-priority="low">low</button>
       <button class="priority-option selected" data-p="medium" data-action="select-priority" data-priority="medium">medium</button>
@@ -533,10 +534,11 @@ export function togglePriorityPopover(e, id, current) {
   if (!wrap) return;
   const popover = document.createElement('div');
   popover.className = 'priority-popover';
+  const priorityLabels = { low: '低', medium: '中', high: '高' };
   ['low', 'medium', 'high'].forEach(p => {
     const pill = document.createElement('span');
     pill.className = `priority-pill priority-${p}${p === current ? ' current' : ''}`;
-    pill.textContent = p;
+    pill.textContent = priorityLabels[p];
     pill.dataset.action = 'set-priority';
     pill.dataset.id = id;
     pill.dataset.priority = p;
@@ -568,10 +570,10 @@ export function togglePriorityPopover(e, id, current) {
 
 // --- Status popover (subtask status dot) ---
 const STATUS_OPTIONS = [
-  { key: 'open', label: 'Open' },
-  { key: 'in-progress', label: 'In Progress' },
-  { key: 'review', label: 'Review' },
-  { key: 'done', label: 'Done' }
+  { key: 'open', label: '待办' },
+  { key: 'in-progress', label: '进行中' },
+  { key: 'review', label: '审核' },
+  { key: 'done', label: '完成' }
 ];
 
 export function toggleStatusPopover(e, id, current) {
@@ -619,11 +621,11 @@ export async function setSubtaskStatus(id, status, state) {
         if (res.parentUpdated.progress) parent.progress = res.parentUpdated.progress;
       }
     }
-    toast(`${STATUS_LABELS[status]}`, 'success');
+    toast(`状态已更新为${STATUS_LABELS[status]}`, 'success');
     _h('light');
     return true;
   } else {
-    toast(res.error || 'Failed', 'error');
+    toast(res.error || '失败', 'error');
     _hn('error');
   }
 }
@@ -647,12 +649,13 @@ export async function setPriority(id, priority, state) {
   });
   if (!res.ok) {
     if (task) task.priority = oldPriority;
+    const priorityLabels = { low: '低', medium: '中', high: '高' };
     if (pill && oldPriority) {
       pill.className = `priority-pill priority-${oldPriority}`;
-      pill.textContent = oldPriority;
+      pill.textContent = priorityLabels[oldPriority];
       pill.dataset.priority = oldPriority;
     }
-    toast('Failed to set priority', 'error');
+    toast('设置优先级失败', 'error');
     _hn('error');
   }
 }
@@ -666,14 +669,14 @@ export function startDelete(id, title, specFile, subtaskCount = 0) {
     const checkSvg = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
     let options = '';
     if (hasSubs) {
-      options += `<label class="modal-checkbox"><input type="checkbox" id="delSubtasks" checked><span class="check-box">${checkSvg}</span> Delete ${subtaskCount} subtask(s)</label>`;
+      options += `<label class="modal-checkbox"><input type="checkbox" id="delSubtasks" checked><span class="check-box">${checkSvg}</span> 删除 ${subtaskCount} 个子任务</label>`;
     }
     if (hasSpec) {
-      options += `<label class="modal-checkbox"><input type="checkbox" id="delSpec" checked><span class="check-box">${checkSvg}</span> Delete spec file</label>`;
+      options += `<label class="modal-checkbox"><input type="checkbox" id="delSpec" checked><span class="check-box">${checkSvg}</span> 删除规范文件</label>`;
     }
 
     showModal(
-      '🗑️ Delete task?',
+      '🗑️ 删除任务？',
       `<strong>${id}</strong>: ${escHtml(title)}<div class="modal-options">${options}</div>`,
       () => {
         const deleteSpec = hasSpec && (document.getElementById('delSpec')?.checked ?? false);
@@ -682,13 +685,13 @@ export function startDelete(id, title, specFile, subtaskCount = 0) {
           : null;
         if (window._confirmDelete) window._confirmDelete(id, deleteSpec, mode);
       },
-      'Delete',
+      '删除',
       'btn-danger'
     );
   } else {
     showModal(
-      'Delete task?',
-      `<strong>${id}</strong>: ${escHtml(title)}<br>This action cannot be undone.`,
+      '删除任务？',
+      `<strong>${id}</strong>: ${escHtml(title)}<br>此操作无法撤销。`,
       () => { if (window._confirmDelete) window._confirmDelete(id, false); }
     );
   }
@@ -707,7 +710,7 @@ export async function confirmDelete(id, state, deleteSpec = false, mode = null) 
 
   if (res.error === 'Task has subtasks') {
     if (card) card.classList.remove('removing');
-    toast('Choose how to handle subtasks', 'warn');
+    toast('请选择如何处理子任务', 'warn');
     return;
   }
 
@@ -740,7 +743,7 @@ export async function confirmDelete(id, state, deleteSpec = false, mode = null) 
     if (deleteSpec && specFile) {
       await api(`/projects/${state.viewedProject}/files/${specFile}`, { method: 'DELETE' });
     }
-    toast('Task deleted', 'success');
+    toast('任务已删除', 'success');
     return true; // Signal re-render
   }
 }

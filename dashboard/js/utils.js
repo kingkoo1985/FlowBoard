@@ -8,7 +8,7 @@ export const API = API_HOST + '/api';
 export const PRIORITY_ORDER = { high: 0, medium: 1, low: 2 };
 export const PRIORITY_CYCLE = { low: 'medium', medium: 'high', high: 'low' };
 export const STATUS_KEYS = ['open', 'in-progress', 'review', 'done'];
-export const STATUS_LABELS = { 'open': 'Open', 'in-progress': 'In Progress', 'review': 'Review', 'done': 'Done' };
+export const STATUS_LABELS = { 'open': '待办', 'in-progress': '进行中', 'review': '审核', 'done': '完成' };
 
 // --- API Helper ---
 export async function api(path, opts = {}) {
@@ -38,8 +38,8 @@ export async function api(path, opts = {}) {
     document.getElementById('content').innerHTML = `
       <div class="empty-state" style="flex-direction:column;gap:12px">
         <span style="font-size:32px">🔒</span>
-        <span>Session expired</span>
-        <span style="font-size:12px;color:var(--muted)">Please reopen via Telegram.</span>
+        <span>会话已过期</span>
+        <span style="font-size:12px;color:var(--muted)">请通过 Telegram 重新打开。</span>
       </div>`;
     throw new Error('Unauthorized');
   }

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FlowBoard — Project Management for OpenClaw</title>
+  <title>FlowBoard — OpenClaw 项目管理</title>
   <link rel="icon" type="image/svg+xml" href="./favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,8 +25,8 @@
         <div style="font-family:sans-serif;text-align:center;padding:60px 20px;max-width:400px;margin:0 auto">
           <img src="./favicon.svg" style="width:64px;margin-bottom:16px" alt="FlowBoard">
           <h2 style="margin:0 0 8px">FlowBoard</h2>
-          <p style="color:#888;margin:0 0 24px">Please open via Telegram.</p>
-          <p style="color:#aaa;font-size:14px">Open this dashboard from your Telegram bot.</p>
+          <p style="color:#888;margin:0 0 24px">请通过 Telegram 打开。</p>
+          <p style="color:#aaa;font-size:14px">从你的 Telegram 机器人打开此仪表板。</p>
         </div>`;
     });
   }
@@ -36,26 +36,26 @@
   <div class="sidebar-backdrop"></div>
   <div class="header">
     <div class="header-left">
-      <button class="sidebar-toggle" data-action="toggle-sidebar" title="Toggle sidebar">☰</button>
+      <button class="sidebar-toggle" data-action="toggle-sidebar" title="切换侧边栏">☰</button>
       <span class="header-logo"><img src="./favicon.svg" alt="FlowBoard"></span>
       <div class="header-brand">
         <div class="header-title">FlowBoard</div>
-        <div class="header-subtitle">Project Management</div>
+        <div class="header-subtitle">项目管理</div>
       </div>
     </div>
     <div class="header-right" id="headerRight"></div>
   </div>
 
   <div class="tab-bar" id="tabBar">
-    <button class="tab" data-tab="ideas">Ideas</button>
-    <button class="tab active" data-tab="tasks">Tasks</button>
-    <button class="tab" data-tab="files">Files</button>
+    <button class="tab" data-tab="ideas">创意</button>
+    <button class="tab active" data-tab="tasks">任务</button>
+    <button class="tab" data-tab="files">文件</button>
     <span class="tab-bar-spacer"></span>
     <span id="tabBarRight"></span>
   </div>
 
   <div class="sidebar" id="sidebar">
-    <div class="sidebar-label">Projects</div>
+    <div class="sidebar-label">项目</div>
     <div id="projectList"></div>
     <div class="sidebar-actions" id="sidebarActions"></div>
   </div>
