@@ -451,8 +451,9 @@ function parseIndexMd() {
     const lines = text.split('\n');
     const projects = [];
     for (const line of lines) {
-      const match = line.match(/^\|\s*(\w[\w-]*)\s*\|\s*(\w+)\s*\|\s*(.+?)\s*\|$/);
-      if (match && match[1] !== 'Project') {
+      // 修复：支持 ** 标记（UAVS、金智眼）
+      const match = line.match(/^\|\s*\*{2}([^*]+)\*{2}\s*\|\s*(\S.*?)\s*\|\s*(.+?)\s*\|$/);
+      if (match) {
         projects.push({
           name: match[1],
           displayName: getDisplayName(match[1]),
