@@ -99,15 +99,45 @@ if (DASHBOARD_ORIGIN) {
   app.use(cors());
 }
 
-// Rate Limiting — max 60 Requests/Minute pro IP auf API-Routen
+// Rate Limiting — 完善的本地地址支持，避免 IPv6 警告
 app.use('/api/', rateLimit({
-  windowMs: 60 * 1000,
-  max: 60,
+  windowMs: 60 * 1000,  // 60秒窗口
+  max: 60,             // 每分钟最多60个请求
   standardHeaders: true,
   legacyHeaders: false,
-  skip: (req) => req.ip === '127.0.0.1' || req.ip === '::1', // localhost immer erlauben
-  keyGenerator: (req) => req.headers['cf-connecting-ip'] || req.ip,
-  message: { error: 'Too many requests, please slow down.' }
+  skipFailedRequests: true,  // 失败的请求不计入限流
+  skip: (req) => {
+    // 本地开发环境不限流
+    const ip = req.ip || 'unknown';
+    const cfIp = req.headers['cf-connecting-ip'] || 'unknown';
+    
+    // 本地地址列表（包括 IPv6）
+    const localIps = new Set([
+      '127.0.0.1',
+      '::1',
+      '::ffff:127.0.0.1',  // IPv4-mapped IPv6
+      'localhost'
+    ]);
+    
+    return localIps.has(ip) || localIps.has(cfIp);
+  },
+  keyGenerator: (req) => {
+    // 优先使用 Cloudflare IP header（生产环境）
+    const cfIp = req.headers['cf-connecting-ip'];
+    if (cfIp) return cfIp;
+    
+    // 本地地址统一返回 'local'，避免不同 IP 格式触发警告
+    const ip = req.ip || 'unknown';
+    const localIps = new Set([
+      '127.0.0.1',
+      '::1',
+      '::ffff:127.0.0.1',
+      'localhost'
+    ]);
+    
+    return localIps.has(ip) ? 'local' : ip;
+  },
+  message: { error: '⚠️ 请求过于频繁，请稍后再试。' }
 }));
 
 // Security + Cache Headers
