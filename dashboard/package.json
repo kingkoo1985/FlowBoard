@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "export $(cat .env 2>/dev/null | xargs) && node server.js",
+    "start": "node server.js",
     "dev": "node server.js",
     "test": "node test-feishu-webhook.js",
     "clean": "rm -rf .env && echo '✅ 已清理 .env 文件'"
@@ -15,6 +15,7 @@
   "dependencies": {
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
+    "dotenv": "^16.4.7",
     "express": "^5.2.1",
     "express-rate-limit": "^8.2.1",
     "jsonwebtoken": "^9.0.3"

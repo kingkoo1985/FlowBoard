@@ -7,6 +7,16 @@ const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const rateLimit = require('express-rate-limit');
 const cors = require('cors');
+const dotenv = require('dotenv');
+
+// ✅ 加载 .env 文件到环境变量（优先使用 .env）
+const envPath = path.resolve(__dirname, '.env');
+if (fs.existsSync(envPath)) {
+  dotenv.config({ path: envPath });
+  console.log('✅ 已加载 .env 文件');
+} else {
+  console.log('⚠️  .env 文件不存在，使用默认环境变量');
+}
 
 const app = express();
 const PORT = parseInt(process.env.FLOWBOARD_PORT, 10) || 18790;
