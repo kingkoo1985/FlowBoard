@@ -347,7 +347,7 @@ function renderAddTaskForm() {
     </div>
     <div class="form-actions">
       <button class="btn btn-primary btn-sm" data-action="create-task">Create</button>
-      <button class="btn btn-secondary btn-sm" data-action="cancel-add">Cancel</button>
+      <button class="btn btn-secondary btn-sm" data-action="cancel-add">取消</button>
     </div>
   </div>`;
 }

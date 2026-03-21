@@ -74,7 +74,7 @@ export function showModal(title, body, onConfirm, confirmLabel = 'Delete', confi
       <div class="modal-title">${title}</div>
       <div class="modal-body">${body}</div>
       <div class="modal-actions">
-        <button class="btn btn-ghost btn-sm" id="modalCancel">Cancel</button>
+        <button class="btn btn-ghost btn-sm" id="modalCancel">取消</button>
         ${secondaryBtn}
         <button class="btn ${confirmClass} btn-sm" id="modalConfirm">${confirmLabel}</button>
       </div>
