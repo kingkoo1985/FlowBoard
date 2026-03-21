@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "export $(cat .env 2>/dev/null | xargs) && node server.js",
+    "dev": "node server.js",
+    "test": "node test-feishu-webhook.js",
+    "clean": "rm -rf .env && echo '✅ 已清理 .env 文件'"
   },
   "keywords": [],
   "author": "",
