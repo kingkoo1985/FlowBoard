@@ -5,7 +5,7 @@ const crypto = require('crypto');
 const { execFile } = require('child_process');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
-const rateLimit = require('express-rate-limit');
+const { rateLimit, ipKeyGenerator } = require('express-rate-limit');
 const cors = require('cors');
 const dotenv = require('dotenv');
 
@@ -21,7 +21,7 @@ if (fs.existsSync(envPath)) {
 const app = express();
 const PORT = parseInt(process.env.FLOWBOARD_PORT, 10) || 18790;
 const HOST = process.env.FLOWBOARD_HOST || '0.0.0.0';
-
+console.log('hose:',HOST)
 const WORKSPACE = process.env.OPENCLAW_WORKSPACE || path.resolve(__dirname, '..');
 const PROJECTS_DIR = path.join(WORKSPACE, 'projects');
 const ACTIVE_PROJECT_FILE = path.join(WORKSPACE, 'ACTIVE-PROJECT.md');
@@ -134,7 +134,7 @@ app.use('/api/', rateLimit({
   keyGenerator: (req) => {
     // 优先使用 Cloudflare IP header（生产环境）
     const cfIp = req.headers['cf-connecting-ip'];
-    if (cfIp) return cfIp;
+    if (cfIp) return ipKeyGenerator(cfIp);
     
     // 本地地址统一返回 'local'，避免不同 IP 格式触发警告
     const ip = req.ip || 'unknown';
@@ -144,8 +144,8 @@ app.use('/api/', rateLimit({
       '::ffff:127.0.0.1',
       'localhost'
     ]);
-    
-      return 'local';
+
+    return 'local';
   },
   message: { error: '⚠️ 请求过于频繁，请稍后再试。' }
 }));

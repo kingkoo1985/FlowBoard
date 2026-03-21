@@ -1,9 +1,9 @@
 /* canvas.css — Idea Canvas style overrides
    Injected programmatically by idea-canvas.js — do NOT add to index.html */
 
-/* Selection state — white border, no red glow */
+/* Selection state — dark border, no red glow */
 .note.selected {
-  outline: 2px solid #fff;
+  outline: 2px solid var(--text-strong);
   outline-offset: 2px;
 }
 
@@ -110,11 +110,11 @@
 .note.color-teal   .conn-dot { background: var(--accent-2);     color: var(--accent-2); }
 .note.color-grey   .conn-dot { background: var(--border-strong); color: var(--border-strong); }
 
-/* Free dots: dark fill + colored inner ring + dark outer shadow (ring style) */
+/* Free dots: fill + colored inner ring + outer shadow (ring style) */
 .canvas-viewport .conn-dot.conn-dot-free {
-  background: var(--bg);
+  background: transparent;
   border: 2px solid currentColor;        /* colored ring inside */
-  box-shadow: 0 0 0 1.5px var(--bg);    /* dark outer ring via shadow */
+  box-shadow: 0 0 0 1.5px transparent;
   opacity: 0;
   transition: opacity 0.15s;
 }
@@ -124,9 +124,9 @@
 /* Active dot: the dot being dragged from — stays visible even when hover leaves */
 .canvas-viewport .conn-dot.conn-dot-active { opacity: 1; }
 
-/* Connected dots: filled with line color + dark outer shadow ring */
+/* Connected dots: filled with line color + outer shadow ring */
 .canvas-viewport .conn-dot.conn-dot-connected {
-  box-shadow: 0 0 0 1.5px var(--bg);
+  box-shadow: 0 0 0 1.5px transparent;
   opacity: 1;
 }
 
