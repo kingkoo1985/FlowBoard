@@ -140,11 +140,19 @@ async function activateProject() {
 }
 
 async function deactivateProject() {
-  await api('/status', { method: 'PUT', body: { project: null } });
-  state.activeProject = null;
-  toast('项目已停用。', 'info');
-  renderSidebar();
-  renderHeader();
+  showModal(
+    '停用项目？',
+    `确定要停用项目 <strong>${formatDisplayName(state.viewedProject)}</strong> 吗？`,
+    async () => {
+      await api('/status', { method: 'PUT', body: { project: null } });
+      state.activeProject = null;
+      toast('项目已停用。', 'info');
+      renderSidebar();
+      renderHeader();
+    },
+    '停用',
+    'btn-danger'
+  );
 }
 
 // --- Tab System ---
