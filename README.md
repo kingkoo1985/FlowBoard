@@ -279,8 +279,11 @@ The Idea Canvas promote feature requires OpenClaw webhooks:
 ```bash
 OPENCLAW_HOOKS_TOKEN=your-secret-token
 OPENCLAW_GATEWAY_URL=http://127.0.0.1:18789
-OPENCLAW_DELIVER_CHANNEL=telegram        # or: discord, slack, etc.
-OPENCLAW_DELIVER_TO=your-chat-id         # optional
+# Delivery channel for promote notifications (default: last)
+# Options: last, telegram, whatsapp, discord, slack, signal, feishu
+OPENCLAW_DELIVER_CHANNEL=feishu
+# Optional: delivery target (chat ID for Telegram, phone for WhatsApp, user open_id for feishu)
+OPENCLAW_DELIVER_TO=ou_b5b40e4f5b0e36a124fff581dc6c27d8  # for Feishu
 ```
 
 Without these, everything works except canvas promote.
