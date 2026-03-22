@@ -1,14 +1,14 @@
-# T-{id}: {Title}
+# T-{id}: {标题}
 
-## Goal
-What should be achieved and why? 1-3 sentences.
+## 目标
+要达成什么以及为什么？1-3 句话。
 
-## Done When
-- [ ] Concrete acceptance criteria
+## 完成标准
+- [ ] 具体验收标准
 
-## Approach
-Technical plan. Which files, what logic, dependencies.
-(Often filled in while working on the task)
+## 方法
+技术方案。哪些文件、什么逻辑、依赖关系。
+（通常在执行任务时填写）
 
-## Log
-- YYYY-MM-DD: Spec created
+## 日志
+- YYYY-MM-DD: 规格创建

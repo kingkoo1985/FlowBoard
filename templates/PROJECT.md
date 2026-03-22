@@ -1,29 +1,29 @@
-# [Project Name]
+# [项目名称]
 
-## Goal
-[What should be achieved?]
+## 目标
+[要达成什么？]
 
-## Scope
-- **Included:** [What's part of this project]
-- **Excluded:** [What's explicitly out of scope]
-- **Appetite:** [Small/Medium/Large — how much effort do we invest?]
+## 范围
+- **包含：** [项目中包含的内容]
+- **不包含：** [明确排除的内容]
+- **规模：** [小/中/大 — 投入多少精力？]
 
-## Background
-[Why are we doing this? What are the prerequisites?]
+## 背景
+[为什么要做这个？有什么前提条件？]
 
-## Architecture
-[Technical details — for projects with a Git repo, reference `docs/` in the repo instead of duplicating here. Optional for small/non-technical projects.]
+## 架构
+[技术细节 — 对于有 Git 仓库的项目，引用仓库中的 `docs/` 而不是在这里复制。对于小型/非技术项目可选。]
 
-## Project Files
-[List non-standard files when created. specs/ are linked via tasks.json and don't need entries here.]
-<!-- Example: -->
-<!-- - `context/hardware-guide.md` — External hardware reference -->
+## 项目文件
+[创建非标准文件时列出。specs/ 通过 tasks.json 链接，无需在此处输入。]
+<!-- 示例： -->
+<!-- - `context/hardware-guide.md` — 外部硬件参考 -->
 
-## Current Status
-[Updated by agent after each significant session]
+## 当前状态
+[每次重要会话后由智能体更新]
 
-## Session Log
-<!-- Newest on top -->
+## 会话日志
+<!-- 最新的在顶部 -->
 
-### [DATE]
-- Project created
+### [日期]
+- 项目创建

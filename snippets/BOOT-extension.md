@@ -1,12 +1,12 @@
-# BOOT.md Extension
+# BOOT.md 扩展
 
-Add this section to your existing BOOT.md (do not replace existing content).
+将此部分添加到现有的 BOOT.md（不要替换现有内容）。
 
 ```markdown
-## Project State Recovery
-After a gateway restart:
-1. Read `ACTIVE-PROJECT.md`
-2. If active project exists with pending actions: mention project name and what was in progress
-3. If active project exists but no pending actions: briefly mention the active project
-4. If no active project: skip project-related notifications
+## 项目状态恢复
+在 Gateway 重启后：
+1. 读取 `ACTIVE-PROJECT.md`
+2. 如果存在带待操作项目的激活项目：提及项目名称和进行中的内容
+3. 如果存在激活项目但没有待操作：简要提及激活项目
+4. 如果没有激活项目：跳过项目相关通知
 ```

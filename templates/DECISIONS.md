@@ -1,10 +1,10 @@
-# Decisions — [Project Name]
+# 决策 — [项目名称]
 
-Decisions are logged here when significant choices are made. Only loaded on demand.
+在此记录重大决策时记录日志。仅按需加载。
 
-<!-- Format:
-### [DATE] — [Short Title]
-**Decision:** What was decided
-**Reasoning:** Why
-**Alternatives considered:** What else was on the table
+<!-- 格式：
+### [日期] — [简短标题]
+**决策：** 做了什么决定
+**推理：** 为什么
+**考虑的替代方案：** 桌上还有什么其他选项
 -->
