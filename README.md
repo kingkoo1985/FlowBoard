@@ -1,7 +1,7 @@
 <h1 align="center">FlowBoard</h1>
 
 <p align="center">
-  <strong>Project workspaces for AI agents. Built for <a href="https://github.com/openclaw/openclaw">OpenClaw</a>.</strong>
+  <strong>AI 智能体项目工作空间。为 <a href="https://github.com/openclaw/openclaw">OpenClaw</a> 而构建。</strong>
 </p>
 
 <p align="center">
@@ -11,73 +11,73 @@
 </p>
 
 <p align="center">
-  <a href="#quick-start">Quick Start</a> •
-  <a href="#features">Features</a> •
-  <a href="#-idea-canvas">Idea Canvas</a> •
-  <a href="#remote-access-telegram-mini-app">Remote Access</a> •
-  <a href="CHANGELOG.md">Changelog</a>
+  <a href="#quick-start">快速开始</a> •
+  <a href="#features">功能特性</a> •
+  <a href="#-idea-canvas">创意画布</a> •
+  <a href="#remote-access-telegram-mini-app">远程访问</a> •
+  <a href="CHANGELOG.md">更新日志</a>
 </p>
 
 ---
 
-Your agent loses context every session. What was I building? What decisions did I make? What's the next task? All gone.
+你的智能体每次会话都会丢失上下文。我在构建什么？我做了什么决策？下一个任务是什么？全都忘了。
 
-**FlowBoard fixes that.**
+**FlowBoard 解决这个问题。**
 
-- **📂 Project context on demand** — Activate a project and your agent gets goals, decisions, tasks, and specs. Lazy-loaded to save tokens.
-- **📋 Kanban you both use** — Your agent creates tasks, writes specs, moves cards, breaks work into subtasks. You see progress live.
-- **💡 Idea Canvas** — Brainstorm together visually. One click turns connected ideas into tasks with specs and subtasks.
+- **📂 按需获取项目上下文** — 激活项目，智能体立即获得目标、决策、任务和规格。懒加载以节省 token。
+- **📋 双方使用的看板** — 智能体创建任务、编写规格、移动卡片、将工作拆解为子任务。你实时看到进度。
+- **💡 创意画布** — 一起进行可视化头脑风暴。一键将连接的想法转换为带规格和子任务的任务。
 
 ![FlowBoard Kanban](docs/screenshot-kanban.png)
 
 ---
 
-## Features
+## 功能特性
 
-### 📂 Project Workspaces
+### 📂 项目工作空间
 
-Activate a project and the agent instantly gets the context it needs — goal, scope, architecture, decisions, task status, specs. Everything is loaded on demand: the agent pulls in what it needs, when it needs it, keeping token usage low. Switch between projects without losing track.
+激活项目，智能体立即获得所需的上下文 — 目标、范围、架构、决策、任务状态、规格。所有内容按需加载：智能体在需要时拉取所需内容，保持低 token 使用。在不同项目间切换而不丢失踪迹。
 
-- Structured workspace: `PROJECT.md` → `DECISIONS.md` → `tasks.json` → `specs/`
-- Lazy loading — zero overhead when no project is active
-- Session handoff — pick up exactly where you left off
+- 结构化工作空间：`PROJECT.md` → `DECISIONS.md` → `tasks.json` → `specs/`
+- 懒加载 — 没有激活项目时零开销
+- 会话交接 — 准确从中断处继续
 
-### 📋 Agent-Native Kanban
+### 📋 智能体原生看板
 
-Your agent operates the board through the same REST API as the dashboard. It creates tasks, sets priorities, writes specs with acceptance criteria, and updates status as it works.
+你的智能体通过 dashboard 使用的相同 REST API 操作看板。它创建任务、设置优先级、编写带验收标准的规格，并在工作时更新状态。
 
-- Tasks with workflow: `open → in-progress → review → done`
-- Parent tasks with subtasks and progress tracking
-- Spec files with acceptance criteria and logs
-- Real-time visibility into what the agent is doing
+- 带工作流的任务：`open → in-progress → review → done`
+- 带子任务和进度追踪的父任务
+- 带验收标准和日志的规格文件
+- 实时了解智能体在做什么
 
-### 💡 Idea Canvas
+### 💡 创意画布
 
-A node-based brainstorming space. Sticky notes with connections form clusters. One click sends them to your agent, who analyzes the ideas and creates:
+基于节点的头脑风暴空间。带连接的便签形成集群。一键将它们发送给你的智能体，智能体分析想法并创建：
 
 ![FlowBoard Canvas](docs/screenshot-canvas.png)
 
-- **Simple idea** → Task with title and priority
-- **Detailed idea** → Task + spec with acceptance criteria
-- **Complex cluster** → Parent task + subtasks with specs
+- **简单想法** → 带标题和优先级的任务
+- **详细想法** → 任务 + 带验收标准的规格
+- **复杂集群** → 父任务 + 带规格的子任务
 
-Visual brainstorming → structured tasks, zero manual overhead.
+可视化头脑风暴 → 结构化任务，零手动开销。
 
-### 📁 File Explorer
+### 📁 文件浏览器
 
-Browse, preview, and edit project files without leaving the dashboard. Markdown rendering with syntax highlighting, inline editing, and auto-refresh.
+在不离开 dashboard 的情况下浏览、预览和编辑项目文件。带语法高亮的 Markdown 渲染、内联编辑和自动刷新。
 
 ![FlowBoard Files](docs/screenshot-files.png)
 
 ### 📱 Telegram Mini App
 
-Access FlowBoard remotely from Telegram. Secure authentication via HMAC-SHA256, mobile-optimized UI, works through Cloudflare Tunnel, ngrok, or Tailscale.
+通过安全的隧道从 Telegram 远程访问 FlowBoard。通过 HMAC-SHA256 安全认证、移动端优化的 UI，支持 Cloudflare Tunnel、ngrok 或 Tailscale。
 
 ---
 
-## Quick Start
+## 快速开始
 
-### 1. Clone & install
+### 1. 克隆并安装
 
 ```bash
 git clone https://github.com/rasimme/FlowBoard.git
@@ -85,23 +85,23 @@ cd FlowBoard/dashboard
 npm install
 ```
 
-### 2. Set up workspace
+### 2. 设置工作空间
 
 ```bash
 cp FlowBoard/files/ACTIVE-PROJECT.md ~/.openclaw/workspace/
 cp -r FlowBoard/files/projects ~/.openclaw/workspace/
 ```
 
-### 3. Add agent trigger
+### 3. 添加智能体触发器
 
-Add the project trigger to the top of your `~/.openclaw/workspace/AGENTS.md`:
+将项目触发器添加到 `~/.openclaw/workspace/AGENTS.md` 的顶部：
 
 ```bash
 cat FlowBoard/snippets/AGENTS-trigger.md
-# → Paste that block into your AGENTS.md
+# → 将该块粘贴到你的 AGENTS.md
 ```
 
-### 4. Install hooks
+### 4. 安装钩子
 
 ```bash
 cp -r FlowBoard/hooks/project-context ~/.openclaw/hooks/
@@ -109,37 +109,37 @@ cp -r FlowBoard/hooks/session-handoff ~/.openclaw/hooks/
 openclaw gateway restart
 ```
 
-### 5. Start the dashboard
+### 5. 启动 dashboard
 
 ```bash
 node server.js
-# Or with systemd (auto-start on boot):
+# 或使用 systemd（开机自动启动）：
 cp templates/dashboard.service ~/.local/share/systemd/user/
 systemctl --user enable --now dashboard
 ```
 
-### 6. Create your first project
+### 6. 创建你的第一个项目
 
-Open **http://localhost:18790** and tell your agent:
+打开 **http://localhost:18790** 并告诉你的智能体：
 
 > "New project: my-app"
 
-The agent creates the folder structure, task file, and registers it in the dashboard.
+智能体创建文件夹结构、任务文件，并在 dashboard 中注册。
 
 ---
 
-## 🐳 Docker Deployment
+## 🐳 Docker 部署
 
-FlowBoard provides complete Docker deployment support for easy containerization and portability.
+FlowBoard 提供完整的 Docker 部署支持，便于容器化和可移植性。
 
-### Prerequisites
+### 前置要求
 
 - Docker 20.10+
 - Docker Compose 2.0+
 
-### Quick Start with Docker
+### 使用 Docker 快速开始
 
-#### 1. Clone and build
+#### 1. 克隆并构建
 
 ```bash
 git clone https://github.com/rasimme/FlowBoard.git
@@ -147,124 +147,124 @@ cd FlowBoard
 docker build -t flowboard:latest .
 ```
 
-#### 2. Run with Docker Compose (Recommended)
+#### 2. 使用 Docker Compose 运行（推荐）
 
 ```bash
-# Copy example environment file
+# 复制示例环境文件
 cp .env.example .env
 
-# Edit .env with your configuration
+# 编辑 .env 配置
 nano .env
 
-# Start services
+# 启动服务
 docker-compose up -d
 
-# Access dashboard
+# 访问 dashboard
 open http://localhost:18790
 ```
 
-#### 3. Mount OpenClaw Workspace
+#### 3. 挂载 OpenClaw 工作空间
 
-**Option A: Host path mapping** (Recommended)
+**选项 A：主机路径映射**（推荐）
 
-Edit `docker-compose.yml`:
+编辑 `docker-compose.yml`：
 
 ```yaml
 volumes:
   - /Users/mac/.openclaw/workspace:/workspace
 ```
 
-**Option B: Use named volume**
+**选项 B：使用命名卷**
 
 ```bash
-# Copy project files to volume
+# 复制项目文件到卷
 docker cp /path/to/your/PROJECT.md flowboard:/workspace/ACTIVE-PROJECT.md
 docker cp -r /path/to/your/project flowboard:/workspace/projects/my-project
 ```
 
-### Makefile Commands
+### Makefile 命令
 
 ```bash
-make help          # Show all available commands
-make build         # Build Docker image
-make up            # Start services
-make down          # Stop services
-make restart       # Restart services
-make logs          # Show logs
-make shell         # Open shell in container
-make clean         # Remove containers and volumes
-make rebuild       # Rebuild and restart
+make help          # 显示所有可用命令
+make build         # 构建 Docker 镜像
+make up            # 启动服务
+make down          # 停止服务
+make restart       # 重启服务
+make logs          # 显示日志
+make shell         # 打开容器 shell
+make clean         # 删除容器和卷
+make rebuild       # 重新构建并重启
 ```
 
-### Production Deployment
+### 生产环境部署
 
-#### 1. Environment Variables
+#### 1. 环境变量
 
-See `.env.example` for all available configuration options. Key production settings:
+查看 `.env.example` 了解所有可用配置选项。关键生产设置：
 
 ```bash
-# Required: Workspace
+# 必需：工作空间
 OPENCLAW_WORKSPACE=/workspace
 
-# Optional: Auth (strongly recommended for remote access)
+# 可选：认证（强烈推荐用于远程访问）
 TELEGRAM_BOT_TOKEN=your_bot_token
 JWT_SECRET=openssl rand -hex 32
 ALLOWED_USER_IDS=123456789
 
-# Optional: Tunnel
+# 可选：隧道
 TUNNEL_TOKEN=your_cloudflare_tunnel_token
 ```
 
-#### 2. Health Checks
+#### 2. 健康检查
 
-The container includes built-in health checks:
+容器包含内置的健康检查：
 
 ```bash
 docker ps --format "table {{.Status}}"
-# Check health: STATUS should be "Up (healthy)"
+# 检查健康：STATUS 应为 "Up (healthy)"
 ```
 
-#### 3. Resource Limits
+#### 3. 资源限制
 
-Default resource limits in `docker-compose.yml`:
+`docker-compose.yml` 中的默认资源限制：
 
-- CPU: 1.0 core (limit) / 0.5 core (reserved)
-- Memory: 512MB (limit) / 256MB (reserved)
+- CPU：1.0 核心（限制）/ 0.5 核心（保留）
+- 内存：512MB（限制）/ 256MB（保留）
 
-Adjust based on your needs.
+根据需要调整。
 
-#### 4. Security Best Practices
+#### 4. 安全最佳实践
 
-- ✅ Non-root user (configured in Dockerfile)
-- ✅ Read-only file system where possible
-- ✅ Resource limits prevent resource exhaustion
-- ✅ JWT_SECRET must be strong (32+ random hex characters)
-- ✅ Use HTTPS in production (reverse proxy with Nginx/Traefik)
+- ✅ 非 root 用户（在 Dockerfile 中配置）
+- ✅ 尽可能使用只读文件系统
+- ✅ 资源限制防止资源耗尽
+- ✅ JWT_SECRET 必须强（32+ 随机十六进制字符）
+- ✅ 生产环境使用 HTTPS（使用 Nginx/Traefik 反向代理）
 
-### Remote Access with Cloudflare Tunnel
+### 使用 Cloudflare Tunnel 远程访问
 
-Run Cloudflare Tunnel alongside FlowBoard:
+与 FlowBoard 并行运行 Cloudflare Tunnel：
 
 ```bash
 docker-compose up -d
 
-# In another terminal
+# 在另一个终端
 cloudflared tunnel run --url http://localhost:18790
 ```
 
-Or integrate tunnel into `docker-compose.yml` (see `DOCKER_DEPLOY.md`).
+或将隧道集成到 `docker-compose.yml` 中（参见 `DOCKER_DEPLOY.md`）。
 
-### Troubleshooting
+### 故障排除
 
-See [DOCKER_DEPLOY.md](DOCKER_DEPLOY.md) for complete troubleshooting guide.
+完整的故障排除指南见 [DOCKER_DEPLOY.md](DOCKER_DEPLOY.md)。
 
 ---
 
-## Canvas → Task Promote
+## 画布 → 任务推广
 
-The Idea Canvas promote feature requires OpenClaw webhooks:
+创意画布推广功能需要 OpenClaw webhooks：
 
-**1. Enable webhooks** in `~/.openclaw/openclaw.json`:
+**1. 在 `~/.openclaw/openclaw.json` 中启用 webhooks**：
 ```json5
 {
   hooks: {
@@ -275,63 +275,63 @@ The Idea Canvas promote feature requires OpenClaw webhooks:
 }
 ```
 
-**2. Set environment variables:**
+**2. 设置环境变量：**
 ```bash
 OPENCLAW_HOOKS_TOKEN=your-secret-token
 OPENCLAW_GATEWAY_URL=http://127.0.0.1:18789
-# Delivery channel for promote notifications (default: last)
-# Options: last, telegram, whatsapp, discord, slack, signal, feishu
+# 推广通知的投递渠道（默认：last）
+# 选项：last, telegram, whatsapp, discord, slack, signal, feishu
 OPENCLAW_DELIVER_CHANNEL=feishu
-# Optional: delivery target (chat ID for Telegram, phone for WhatsApp, user open_id for feishu)
-OPENCLAW_DELIVER_TO=ou_b5b40e4f5b0e36a124fff581dc6c27d8  # for Feishu
+# 可选：投递目标（Telegram 为聊天 ID，WhatsApp 为电话号码，Feishu 为用户 open_id）
+OPENCLAW_DELIVER_TO=ou_b5b40e4f5b0e36a124fff581dc6c27d8  # 用于 Feishu
 ```
 
-Without these, everything works except canvas promote.
+没有这些，除了画布推广外所有功能都能用。
 
 ---
 
-## Commands
+## 命令
 
-Tell your agent:
+告诉你的智能体：
 
-| Command | What it does |
+| 命令 | 功能 |
 |---------|-------------|
-| `Project: [Name]` | Activate project (loads full context) |
-| `New project: [Name]` | Create project with folder structure |
-| `End project` | Deactivate, save session summary |
-| `Projects` | List all projects |
+| `Project: [Name]` | 激活项目（加载完整上下文） |
+| `New project: [Name]` | 创建项目及文件夹结构 |
+| `End project` | 停用，保存会话摘要 |
+| `Projects` | 列出所有项目 |
 
-The agent also handles these autonomously while working:
+智能体在工作时也会自主处理这些：
 
-| Action | What happens |
+| 操作 | 发生什么 |
 |--------|-------------|
-| Create task | Agent calls API, sets priority, optionally writes spec |
-| Create subtasks | Agent breaks a task into subtasks with a parent |
-| Update status | Agent moves tasks through `open → in-progress → review → done` |
-| Write spec | Agent creates `specs/T-xxx-slug.md` with acceptance criteria |
-| Canvas promote | Agent receives cluster notes, decides task structure |
+| 创建任务 | 智能体调用 API，设置优先级，可选地编写规格 |
+| 创建子任务 | 智能体将任务拆解为带父任务的子任务 |
+| 更新状态 | 智能体将任务移动通过 `open → in-progress → review → done` |
+| 编写规格 | 智能体创建 `specs/T-xxx-slug.md` 并带验收标准 |
+| 画布推广 | 智能体接收集群笔记，决定任务结构 |
 
 ---
 
 <details>
-<summary><h2>Remote Access (Telegram Mini App)</h2></summary>
+<summary><h2>远程访问（Telegram Mini App）</h2></summary>
 
-FlowBoard can be accessed remotely as a Telegram Mini App through a secure tunnel.
+FlowBoard 可以作为 Telegram Mini App 通过安全隧道远程访问。
 
-### Set up a tunnel
+### 设置隧道
 
-Any tunnel works. Recommended: **Cloudflare Tunnel** (free, stable).
+任何隧道都可以。推荐：**Cloudflare Tunnel**（免费、稳定）。
 
 ```bash
 cloudflared tunnel login
 cloudflared tunnel create flowboard
 cloudflared tunnel route dns flowboard dashboard.your-domain.com
 cp templates/cloudflare-config.yml ~/.cloudflared/config.yml
-# Edit: replace <TUNNEL_ID>, <USER>, <YOUR_DOMAIN>
+# 编辑：替换 <TUNNEL_ID>, <USER>, <YOUR_DOMAIN>
 cloudflared tunnel run flowboard
 ```
 
-### Configure authentication
+### 配置认证
 
 ```bash
 JWT_SECRET=$(openssl rand -hex 32)
@@ -339,78 +339,78 @@ JWT_SECRET=$(openssl rand -hex 32)
 mkdir -p ~/.config/systemd/user/dashboard.service.d
 cp templates/systemd-auth.conf.example \
    ~/.config/systemd/user/dashboard.service.d/auth.conf
-# Edit with your values:
-# - TELEGRAM_BOT_TOKEN (from @BotFather)
+# 编辑你的值：
+# - TELEGRAM_BOT_TOKEN（来自 @BotFather）
 # - JWT_SECRET
-# - ALLOWED_USER_IDS (your Telegram user ID)
-# - DASHBOARD_ORIGIN (your public URL)
+# - ALLOWED_USER_IDS（你的 Telegram 用户 ID）
+# - DASHBOARD_ORIGIN（你的公共 URL）
 
 systemctl --user daemon-reload
 systemctl --user restart dashboard
 ```
 
-### Register Telegram button
+### 注册 Telegram 按钮
 
-1. Open @BotFather → `/setmenubutton`
-2. Select your bot
-3. Send your public dashboard URL
-4. Send button label (e.g. "Dashboard")
+1. 打开 @BotFather → `/setmenubutton`
+2. 选择你的机器人
+3. 发送你的公共 dashboard URL
+4. 发送按钮标签（例如 "Dashboard"）
 
 </details>
 
 ---
 
-## Architecture
+## 架构
 
 ```
 ~/.openclaw/workspace/
-├── AGENTS.md                     # Agent trigger
-├── ACTIVE-PROJECT.md             # Current project state
+├── AGENTS.md                     # 智能体触发器
+├── ACTIVE-PROJECT.md             # 当前项目状态
 └── projects/
-    ├── PROJECT-RULES.md          # System rules
-    ├── _index.md                 # Project registry
+    ├── PROJECT-RULES.md          # 系统规则
+    ├── _index.md                 # 项目注册表
     └── my-project/
-        ├── PROJECT.md            # Goal, scope, status, session log
-        ├── DECISIONS.md          # Architecture decisions
-        ├── tasks.json            # Tasks (API-managed)
-        ├── canvas.json           # Idea canvas data
-        ├── context/              # External references
-        └── specs/                # Task specs
+        ├── PROJECT.md            # 目标、范围、状态、会话日志
+        ├── DECISIONS.md          # 架构决策
+        ├── tasks.json            # 任务（API 管理）
+        ├── canvas.json           # 创意画布数据
+        ├── context/              # 外部参考资料
+        └── specs/                # 任务规格
 
-~/FlowBoard/dashboard/            # Dashboard server
-├── server.js                     # Express 5 API + auth
+~/FlowBoard/dashboard/            # Dashboard 服务
+├── server.js                     # Express 5 API + 认证
 ├── index.html                    # SPA shell
-├── js/                           # ES modules (vanilla JS, no build step)
-└── styles/                       # CSS (dark theme)
+├── js/                           # ES 模块（原生 JS，无构建步骤）
+└── styles/                       # CSS（暗色主题）
 ```
 
-**Key principles:**
-- 🎯 **Vanilla JS** — No framework, no build step, no bundler
-- 💾 **File-based** — JSON + Markdown, no database
-- ⚡ **Lazy loading** — Zero overhead when no project active
-- 🔒 **Local-first** — Everything runs on your machine
-- 📡 **API-driven** — Dashboard and agent use the same REST API
+**核心原则：**
+- 🎯 **原生 JS** — 无框架、无构建步骤、无打包器
+- 💾 **基于文件** — JSON + Markdown，无数据库
+- ⚡ **懒加载** — 没有激活项目时零开销
+- 🔒 **本地优先** — 一切在你的机器上运行
+- 📡 **API 驱动** — Dashboard 和智能体使用相同的 REST API
 
 ---
 
-## Contributing
+## 贡献
 
-Contributions welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+欢迎贡献！指南见 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
 ```bash
 git checkout -b feat/your-feature
-# Make changes on dev branch
+# 在 dev 分支上做更改
 git commit -m "feat: your feature"
 ```
 
 ---
 
-## License
+## 许可证
 
 MIT © 2026
 
 ---
 
 <p align="center">
-  <strong>Built with ❤️ for the <a href="https://github.com/openclaw/openclaw">OpenClaw</a> community</strong>
+  <strong>用 ❤️ 为 <a href="https://github.com/openclaw/openclaw">OpenClaw</a> 社区构建</strong>
 </p>
